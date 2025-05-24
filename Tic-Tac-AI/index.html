@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tic-Tac-Toe AI</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin-top: 40px;
+    }
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      gap: 5px;
+      justify-content: center;
+    }
+    .cell {
+      width: 100px;
+      height: 100px;
+      font-size: 2em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid #444;
+      cursor: pointer;
+      user-select: none;
+    }
+    .cell.taken {
+      cursor: default;
+    }
+    #status {
+      margin-top: 20px;
+      font-size: 1.2em;
+    }
+    button {
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tic-Tac-Toe (You = X, AI = O)</h1>
+  <div class="board" id="board"></div>
+  <div id="status"></div>
+  <button onclick="restart()">Restart</button>
+
+  <script>
+    let board = ["", "", "", "", "", "", "", "", ""];
+    let gameOver = false;
+
+    const boardDiv = document.getElementById("board");
+    const statusDiv = document.getElementById("status");
+
+    function render() {
+      boardDiv.innerHTML = "";
+      board.forEach((cell, index) => {
+        const cellDiv = document.createElement("div");
+        cellDiv.className = "cell" + (cell ? " taken" : "");
+        cellDiv.textContent = cell;
+        if (!cell && !gameOver) {
+          cellDiv.onclick = () => playerMove(index);
+        }
+        boardDiv.appendChild(cellDiv);
+      });
+    }
+
+    function playerMove(index) {
+      if (board[index] || gameOver) return;
+      board[index] = "X";
+      if (checkWinner(board, "X")) {
+        gameOver = true;
+        statusDiv.textContent = "You win!";
+      } else if (board.every(c => c)) {
+        gameOver = true;
+        statusDiv.textContent = "It's a draw!";
+      } else {
+        aiMove();
+      }
+      render();
+    }
+
+    function aiMove() {
+      const best = minimax(board, 0, true, -Infinity, Infinity);
+      board[best.index] = "O";
+      if (checkWinner(board, "O")) {
+        gameOver = true;
+        statusDiv.textContent = "AI wins!";
+      } else if (board.every(c => c)) {
+        gameOver = true;
+        statusDiv.textContent = "It's a draw!";
+      }
+    }
+
+    function checkWinner(b, player) {
+      const winCombos = [
+        [0,1,2],[3,4,5],[6,7,8],
+        [0,3,6],[1,4,7],[2,5,8],
+        [0,4,8],[2,4,6]
+      ];
+      return winCombos.some(combo => combo.every(i => b[i] === player));
+    }
+
+    function minimax(newBoard, depth, isMax, alpha, beta) {
+      if (checkWinner(newBoard, "O")) return { score: 1 };
+      if (checkWinner(newBoard, "X")) return { score: -1 };
+      if (newBoard.every(c => c)) return { score: 0 };
+
+      let best;
+      if (isMax) {
+        best = { score: -Infinity };
+        for (let i = 0; i < 9; i++) {
+          if (!newBoard[i]) {
+            newBoard[i] = "O";
+            let eval = minimax(newBoard, depth + 1, false, alpha, beta);
+            newBoard[i] = "";
+            eval.index = i;
+            if (eval.score > best.score) best = eval;
+            alpha = Math.max(alpha, eval.score);
+            if (beta <= alpha) break;
+          }
+        }
+      } else {
+        best = { score: Infinity };
+        for (let i = 0; i < 9; i++) {
+          if (!newBoard[i]) {
+            newBoard[i] = "X";
+            let eval = minimax(newBoard, depth + 1, true, alpha, beta);
+            newBoard[i] = "";
+            eval.index = i;
+            if (eval.score < best.score) best = eval;
+            beta = Math.min(beta, eval.score);
+            if (beta <= alpha) break;
+          }
+        }
+      }
+      return best;
+    }
+
+    function restart() {
+      board = ["", "", "", "", "", "", "", "", ""];
+      gameOver = false;
+      statusDiv.textContent = "";
+      render();
+    }
+
+    render();
+  </script>
+</body>
+</html>
