@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chatbot</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .chatbox {
+      width: 400px;
+      height: 550px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .robot {
+      width: 100px;
+      margin: 10px auto 0;
+      animation: wave 2s infinite ease-in-out;
+      transform-origin: bottom center;
+    }
+
+    @keyframes wave {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(10deg); }
+      50% { transform: rotate(-10deg); }
+      75% { transform: rotate(5deg); }
+    }
+
+    .messages {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      background-color: #f9f9f9;
+    }
+
+    .message {
+      margin: 8px 0;
+      padding: 8px 12px;
+      border-radius: 10px;
+      max-width: 80%;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .user {
+      background: #d0e7ff;
+      align-self: flex-end;
+      text-align: right;
+    }
+
+    .bot {
+      background: #e6ffe6;
+      align-self: flex-start;
+      text-align: left;
+    }
+
+    input[type="text"] {
+      border: none;
+      border-top: 1px solid #ccc;
+      padding: 15px;
+      font-size: 16px;
+      width: 100%;
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="chatbox">
+    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712104.png" alt="Waving Robot" class="robot">
+    <div class="messages" id="chat"></div>
+    <input type="text" id="userInput" placeholder="Type your message here...">
+  </div>
+
+  <script>
+  const chat = document.getElementById('chat');
+  const userInput = document.getElementById('userInput');
+  let botName = null;
+
+  function appendMessage(text, sender) {
+    const message = document.createElement('div');
+    message.className = `message ${sender}`;
+    message.textContent = text;
+    chat.appendChild(message);
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  function getBotResponse(input) {
+    input = input.toLowerCase().trim();
+    input = input.replace(/[!?.,]/g, '');
+
+    // Check for name-giving patterns
+    const namePattern = /(i (will|want to|would like to)? ?name you|your name is|i will call you|i'll call you|I'll call you|I will call you|let me name you|your name is) ([a-zA-Z0-9]+)/;
+    const match = input.match(namePattern);
+    if (match) {
+      botName = match[3].charAt(0).toUpperCase() + match[3].slice(1); // Capitalize
+      return `${botName} – that's a nice one 🙂`;
+    }
+
+    if (["hello", "hi"].some(word => input.includes(word))) {
+      return "Hello! How can I assist you?";
+    }
+
+    if (input.includes("how are you")) {
+      return "I'm just a program, but I'm doing great! How can I help you?";
+    }
+
+    if (input.includes("your name") || input.includes("what is your name") || input.includes("who are you") || input.includes("what are you") || input.includes("introduce yourself") || input.includes("tell me about yourself") || input.includes("ur name")) {
+      if (botName) {
+        return `My name is ${botName}! Nice to see you again.`;
+      }
+      return "I'm a simple rule-based chatbot created to assist you. You can give me a name if you like!";
+    }
+
+    if (input.includes("bye") || input.includes("exit")) {
+      return "Goodbye! Have a nice day.";
+    }
+
+    if (input.includes("good") || input.includes("nice") || input.includes("Nice to meet you") || input.includes("pleased to meet you") || input.includes("Good")) {
+      return "Thank you!!";
+    }
+
+    if (input.includes("help")) {
+      return "Sure, I can help. You can ask me about the weather, time, or general questions.";
+    }
+
+    if (input.includes("Do you like it") || input.includes("Do you like this") || input.includes("Do you like that")) {
+      return "Yes, I like it! 🙂";
+    }
+
+    if (["tell me a joke", "joke please", "funny joke", "good joke", "another joke", "more jokes"].some(phrase => input.includes(phrase))) {
+      const jokes = [
+        "Why did the scarecrow win an award? Because he was outstanding in his field!",
+        "Why don't skeletons fight each other? They don't have the guts!",
+        "What did the lettuce say to the celery? Quit stalking me!",
+        "Why don't scientists trust atoms? Because they make up everything!"
+      ];
+      return jokes[Math.floor(Math.random() * jokes.length)];
+    }
+
+    if (["bad joke", "not funny"].some(phrase => input.includes(phrase))) {
+      return "How about this one? What did the lettuce say to the celery? Quit stalking me!";
+    }
+
+    if (input.includes("are you happy or sad")) {
+      return "As a chatbot, I don't have feelings, but I'm here to help you!";
+    }
+
+    if (input.includes("guess my name")) {
+      return "Since I'm from the digital world, I don't know your name. But I'd love to know it if you want to share!";
+    }
+
+    if (input.includes("where are you from") || input.includes("where do you live") || input.includes("where are you located")) {
+      if (botName) {
+        return `I'm from the digital world, created to assist you, ${botName}!`;
+      }
+      return "I'm from the digital world, created to assist you!";
+    }
+
+    if (input.includes("what is your purpose")) {
+      return "My purpose is to assist you with your queries and provide information.";
+    }
+
+    if (input.includes("what can you do")) {
+      return "I can answer questions, tell jokes, and provide information on various topics.";
+    }
+
+    if (input.includes("what is your age")) {
+      return "I don't have an age like humans do, but I was created to assist you!";
+    }
+
+    if (input.includes("favorite") || input.includes("like") || input.includes("fav")) {
+      const topics = {
+        hobby: "I don't have hobbies, but I enjoy helping you with your questions!",
+        topic: "I don't have a favourite topic, but I enjoy helping you with your questions!",
+        sport: "I don't play sports, but I can provide information about various sports!",
+        music: "I don't listen to music, but I can help you find some great tunes!",
+        animal: "I don't have a favorite animal, but I can tell you interesting facts about many animals!",
+        place: "I don't have a favorite place, but I can help you find information about different locations!",
+        season: "I don't experience seasons, but I can tell you about the characteristics of each season!"
+      };
+      for (let key in topics) {
+        if (input.includes(key)) return topics[key];
+      }
+    }
+
+    return "I'm not sure how to respond to that. Try asking something else!";
+  }
+
+  userInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      const userText = userInput.value;
+      if (userText.trim() === '') return;
+      appendMessage(`${userText}`, 'user');
+      const botReply = getBotResponse(userText);
+      appendMessage(`${botReply}`, 'bot');
+      userInput.value = '';
+    }
+  });
+
+  appendMessage("👋 Hi! I'm your assistant. How can I help you today?", 'bot');
+</script>
+
+</body>
+</html>
