@@ -39,7 +39,6 @@ Task 3
 🎬 Movie Recommendation System
 
 A simple, interactive web application built with Flask that helps users discover movies based on their favorite genres. The system provides personalized movie recommendations from a curated dataset, all within a modern, user-friendly interface.
-
 🔧Features:
 
     🎯 Genre-Based Recommendations: Select one or more genres (Action, Sci-Fi, Thriller, Crime, Drama, Animation, Comedy, Family, Adventure, Romance) to receive a list of recommended movies.
