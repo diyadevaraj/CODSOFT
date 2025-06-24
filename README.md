@@ -54,3 +54,4 @@ A simple, interactive web application built with Flask that helps users discover
     
     🔄 Easy Reset: Clear your selections at any time to start a new search.
     
+This project is ideal for beginners and intermediate developers to learn about web development with Flask, handling user input, working with data using Pandas, and building interactive recommendation systems. It offers hands-on experience with backend logic, dynamic HTML rendering, and creating a user-friendly interface—all without requiring a database or complex setup.
