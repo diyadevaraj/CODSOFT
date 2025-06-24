@@ -17,28 +17,31 @@ Features:
   📝 Session Memory: Remembers user preferences and context during the session for a smoother chat flow.
 
 How It Works
+
   Start the Chat: The bot greets you with a wave and introduces itself.
   
-Personalize Your Bot: Assign a name to your chatbot for a more engaging experience.
+  Personalize Your Bot: Assign a name to your chatbot for a more engaging experience.
 
-Ask Questions: Inquire about the bot’s background, purpose, or mood, and receive thoughtful responses.
+  Ask Questions: Inquire about the bot’s background, purpose, or mood, and receive thoughtful responses.
  
-Have Fun: Request a joke or interact with the bot’s playful side.
+  Have Fun: Request a joke or interact with the bot’s playful side.
  
-Explore: Try asking anything—the bot will do its best to respond or provide a fallback message.
+  Explore: Try asking anything—the bot will do its best to respond or provide a fallback message.
 
 Tech Stack
+
   Frontend: HTML, CSS, JavaScript
   Backend: (If applicable) Python/Flask or Node.js
   No external APIs required
   
 Getting Started
+
 1.Clone the repository:    git clone https://github.com/yourusername/your-chatbot-repo.git
                            cd your-chatbot-repo/Chatbot
-2.Open the app:
-Open index.html in your web browser to start chatting.
-(If using a backend, follow the backend setup instructions in the repo.)
+                           
+2.Open the app: Open index.html in your web browser to start chatting. (If using a backend, follow the backend setup instructions in the repo.)
 
 File Structure
+
   index.html — Main chat interface and logic
   Chatbot.mp4 — Demo video of the chatbot in action
