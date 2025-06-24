@@ -2,6 +2,7 @@ Task 1
 🎮 Tic-Tac-Toe with AI (Minimax Algorithm)
 
 An interactive browser-based Tic-Tac-Toe game built using HTML, CSS, and vanilla JavaScript, featuring a basic AI opponent powered by the Minimax algorithm with alpha-beta pruning.
+
 🧠 Features:
 
     ✅ Play as X against an unbeatable AI (O)
@@ -21,6 +22,7 @@ Task 2
 💬 Simple Rule-Based Chatbot
 
 A browser-based, interactive chatbot built using HTML, CSS, and vanilla JavaScript. This chatbot uses simple rule-based logic (if-else conditions and keyword matching) to simulate conversation with the user—no libraries, APIs, or machine learning involved.
+
 🔧 Features:
 
     👋 Welcomes the user with a waving robot animation
@@ -39,6 +41,7 @@ Task 3
 🎬 Movie Recommendation System
 
 A simple, interactive web application built with Flask that helps users discover movies based on their favorite genres. The system provides personalized movie recommendations from a curated dataset, all within a modern, user-friendly interface.
+
 🔧Features:
 
     🎯 Genre-Based Recommendations: Select one or more genres (Action, Sci-Fi, Thriller, Crime, Drama, Animation, Comedy, Family, Adventure, Romance) to receive a list of recommended movies.
